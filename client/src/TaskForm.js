@@ -33,52 +33,59 @@ const TaskForm = ({ onTaskAdded }) => {
   };
 
   return (
-    <div className="max-w-lg mx-auto mt-6">
-      <form 
-        onSubmit={handleSubmit} 
-        className="bg-white shadow-lg rounded-lg p-6 border border-gray-200"
-      >
-        <h2 className="text-2xl font-semibold text-gray-700 mb-4 text-center">Create a New Task</h2>
+    <div className="min-h-screen flex flex-col items-center justify-center bg-gray-900 text-white p-6">
+      {/* Tech-Themed Logo */}
+      <img 
+        src="https://source.unsplash.com/100x100/?technology,ai" 
+        alt="Tech Logo" 
+        className="w-24 h-24 mb-4"
+      />
 
-        {error && <p className="text-red-500 mb-3 text-sm">{error}</p>}
+      <h1 className="text-3xl font-bold text-blue-400 mb-6">⚡ Add Your Tech Task</h1>
 
-        <div className="mb-4">
-          <label className="block text-gray-600 font-medium mb-1">Task Title</label>
-          <input
-            type="text"
-            placeholder="Enter task title"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-            required
-            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400 transition"
-          />
-        </div>
+      <div className="flex flex-col items-center space-y-6">
+        {/* Tech Image */}
+        <img 
+          src="https://source.unsplash.com/200x200/?robot,circuit" 
+          alt="Tech Task Illustration" 
+          className="w-40 h-40 rounded-full border-4 border-blue-400 shadow-lg"
+        />
 
-        <div className="mb-4">
-          <label className="block text-gray-600 font-medium mb-1">Description</label>
-          <textarea
-            placeholder="Enter task details (optional)"
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400 transition"
-          />
-        </div>
-
-        <button 
-          type="submit" 
-          disabled={loading}
-          className="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-md transition duration-200 disabled:bg-gray-400"
+        <form 
+          onSubmit={handleSubmit} 
+          className="bg-gray-800 shadow-lg rounded-lg p-6 border border-blue-400 w-full max-w-md text-center"
         >
-          {loading ? (
-            <span className="flex items-center justify-center">
-              <svg className="animate-spin h-5 w-5 mr-2 border-t-2 border-white rounded-full" viewBox="0 0 24 24"></svg>
-              Adding...
-            </span>
-          ) : (
-            "Add Task"
-          )}
-        </button>
-      </form>
+          {error && <p className="text-red-400 mb-3 text-sm">{error}</p>}
+
+          <div className="mb-4">
+            <input
+              type="text"
+              placeholder="Enter task title"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              required
+              className="w-full px-4 py-2 border border-blue-400 bg-gray-700 text-white rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
+            />
+          </div>
+
+          <div className="mb-4">
+            <textarea
+              placeholder="Enter task details (optional)"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+              className="w-full px-4 py-2 border border-blue-400 bg-gray-700 text-white rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
+            />
+          </div>
+
+          <button 
+            type="submit" 
+            disabled={loading}
+            className="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-md transition duration-200 disabled:bg-gray-400"
+          >
+            {loading ? "🚀 Processing..." : "Add Tech Task"}
+          </button>
+        </form>
+      </div>
     </div>
   );
 };
