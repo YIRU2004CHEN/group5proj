@@ -10,6 +10,7 @@ const Register = ({ setUser }) => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [successMessage, setSuccessMessage] = useState(""); // Added successMessage state
 
   const handleRegister = async (e) => {
     e.preventDefault();
@@ -17,10 +18,14 @@ const Register = ({ setUser }) => {
 
     try {
       const response = await axios.post(`${API_URL}/auth/register`, { name, email, password });
-      setUser(response.data.user);
-      localStorage.setItem("token", response.data.token);
+      setSuccessMessage("Registration successful! You can now log in.");
+      setError("");
+      setName("");
+      setEmail("");
+      setPassword("");
     } catch (err) {
       setError("Registration failed");
+      setSuccessMessage("");
     } finally {
       setIsSubmitting(false);
     }
@@ -30,6 +35,7 @@ const Register = ({ setUser }) => {
     <div>
       <h2>Register</h2>
       {error && <p style={{ color: "red" }}>{error}</p>}
+      {successMessage && <p style={{ color: "green" }}>{successMessage}</p>} {/* Display success message */}
       <form onSubmit={handleRegister}>
         <input
           type="text"
