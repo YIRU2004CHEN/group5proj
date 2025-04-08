@@ -1,28 +1,36 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+
+const API_URL = "http://localhost:5000/api/tasks"; 
 
 const TaskList = () => {
-  const[tasks, setTasks] = useState([]);
+  const [tasks, setTasks] = useState([]);
 
-  useEffect(()=>
-  {
+  useEffect(() => {
     fetchTasks();
   }, []);
 
-  const fetchTasks = async() =>{
-    const response = await axios.get('http://localhost:3000/api/tasks');
-    setTasks(response.data);
+  const fetchTasks = async () => {
+    try {
+      const response = await axios.get(API_URL, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
+      setTasks(response.data);
+    } catch (err) {
+      console.error("Failed to fetch tasks:", err);
+    }
   };
-  
+
   return (
     <div>
-      <h1>Task List</h1>
+      <h2>Task List</h2>
       <ul>
         {tasks.map((task) => (
           <li key={task._id}>
             <h3>{task.title}</h3>
             <p>{task.description}</p>
-            <input type="checkbox" checked={task.completed} readOnly />
           </li>
         ))}
       </ul>
