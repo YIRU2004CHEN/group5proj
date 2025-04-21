@@ -60,6 +60,7 @@ const App = () => {
       <Routes>
         <Route path="/register" element={<Register setUser={setUser} />} />
         <Route path="/login" element={<Login setUser={setUser} />} />
+            <Route path="/intro" element={<Introduction />} />           
         <Route
           path="/tasks"
           element={
