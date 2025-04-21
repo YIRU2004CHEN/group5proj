@@ -18,13 +18,15 @@ const Register = ({ setUser }) => {
 
     try {
       const response = await axios.post(`${API_URL}/auth/register`, { name, email, password });
-      setSuccessMessage("Registration successful! You can now log in.");
+      setSuccessMessage(`Welcome, ${response.data.name || name}! Registration successful.`);
       setError("");
       setName("");
       setEmail("");
       setPassword("");
     } catch (err) {
-      setError("Registration failed");
+      const message = err.response?.data?.message || "Registration failed";
+      console.error("Registration error:", message);
+      setError(message);
       setSuccessMessage("");
     } finally {
       setIsSubmitting(false);
