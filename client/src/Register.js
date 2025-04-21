@@ -1,39 +1,46 @@
-import React, { useState } from 'react';
-import axios from 'axios';
-import { Link } from 'react-router-dom';
+// Import necessary modules
+import React, { useState } from 'react'; // React and useState for state management
+import axios from 'axios';              // Axios for HTTP requests
+import { Link } from 'react-router-dom'; // Link for navigation
 
+// Backend API base URL
 const API_URL = "http://localhost:5000/api";
 
+// Register component receives setUser as prop
 const Register = ({ setUser }) => {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [successMessage, setSuccessMessage] = useState("");
+  // Local state for form fields and messages
+  const [name, setName] = useState("");           // User's name input
+  const [email, setEmail] = useState("");         // User's email input
+  const [password, setPassword] = useState("");   // User's password input
+  const [error, setError] = useState("");         // Error message display
+  const [isSubmitting, setIsSubmitting] = useState(false); // Loading state
+  const [successMessage, setSuccessMessage] = useState(""); // Success message
 
+  // Form submission handler
   const handleRegister = async (e) => {
-    e.preventDefault();
-    setIsSubmitting(true);
+    e.preventDefault(); // Prevent page reload
+    setIsSubmitting(true); // Show loading state
 
     try {
+      // Send POST request to backend to register user
       const response = await axios.post(`${API_URL}/auth/register`, { name, email, password });
+
+      // Show success message
       setSuccessMessage(`Welcome, ${response.data.name || name}! Registration successful.`);
-      setError("");
-      setName("");
-      setEmail("");
-      setPassword("");
+      setError(""); // Clear any previous errors
+      setName(""); setEmail(""); setPassword(""); // Reset form fields
     } catch (err) {
+      // Handle errors and display message
       const message = err.response?.data?.message || "Registration failed";
       console.error("Registration error:", message);
       setError(message);
       setSuccessMessage("");
     } finally {
-      setIsSubmitting(false);
+      setIsSubmitting(false); // Reset loading state
     }
   };
 
-  // 👇 Shared styling
+  // 👇 Shared inline styles for input and button components
   const inputStyle = {
     width: "100%",
     padding: "10px",
@@ -46,7 +53,7 @@ const Register = ({ setUser }) => {
   const buttonStyle = {
     width: "100%",
     padding: "10px",
-    backgroundColor: "#10b981",
+    backgroundColor: "#10b981", // Tailwind green-500
     color: "white",
     border: "none",
     borderRadius: "8px",
@@ -54,6 +61,7 @@ const Register = ({ setUser }) => {
     cursor: "pointer"
   };
 
+  // Component UI
   return (
     <div style={{
       display: "flex",
@@ -69,8 +77,12 @@ const Register = ({ setUser }) => {
         minWidth: "320px"
       }}>
         <h2 style={{ textAlign: "center", marginBottom: "20px" }}>Register</h2>
+
+        {/* Show error or success message */}
         {error && <p style={{ color: "red", textAlign: "center" }}>{error}</p>}
         {successMessage && <p style={{ color: "green", textAlign: "center" }}>{successMessage}</p>}
+
+        {/* Registration form */}
         <form onSubmit={handleRegister}>
           <input
             type="text"
@@ -96,10 +108,14 @@ const Register = ({ setUser }) => {
             required
             style={inputStyle}
           />
+
+          {/* Submit button with loading state */}
           <button type="submit" disabled={isSubmitting} style={buttonStyle}>
             {isSubmitting ? "Registering..." : "Register"}
           </button>
         </form>
+
+        {/* Navigation link to login page */}
         <p style={{ marginTop: "15px", textAlign: "center" }}>
           Already have an account? <Link to="/login">Login here</Link>
         </p>
@@ -108,4 +124,5 @@ const Register = ({ setUser }) => {
   );
 };
 
-export default Register;
+export default Register; // Export the Register component
+
