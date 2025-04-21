@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Routes, Navigate, Link } from "react-ro
 import Register from "./Register";
 import Login from "./Login";
 import TaskList from "./TaskList";
+import Introduction from './Introduction';
 
 const App = () => {
   const [user, setUser] = useState(null);
