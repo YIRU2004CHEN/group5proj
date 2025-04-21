@@ -67,13 +67,19 @@ const Register = ({ setUser }) => {
       display: "flex",
       justifyContent: "center",
       alignItems: "center",
-      height: "80vh"
+      //height: "80vh"
+      height: "100vh",
+      backgroundImage: "url('/gators-bg.jpg')",
+      backgroundSize: "cover",
+      backgroundRepeat: "no-repeat",
+      backgroundPosition: "center"
     }}>
       <div style={{
         padding: "30px",
         borderRadius: "12px",
         boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
-        backgroundColor: "#fff",
+        //backgroundColor: "#fff",
+        backgroundColor: "rgba(255, 255, 255, 0.9)",
         minWidth: "320px"
       }}>
         <h2 style={{ textAlign: "center", marginBottom: "20px" }}>Register</h2>
