@@ -94,6 +94,9 @@ const Login = ({ setUser }) => {
         <p style={{ marginTop: "15px", textAlign: "center" }}>
           Don't have an account? <Link to="/register">Register here</Link>
         </p>
+          <p style={{ marginTop: "10px", textAlign: "center" }}>
+            <Link to="/intro">Read Introduction</Link>
+          </p>            
       </div>
     </div>
   );
